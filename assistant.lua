@@ -29,7 +29,9 @@ else
     local YN1 = io.stdin:read()
     if YN1 == "y" then
         filesystem.makeDirectory("/home/AIScript")
-        print("Done!")
+        print("Done! Please re-boot the program.")
+        os.sleep(1)
+        os.exit()
     else
         print("Cancelled.")
     end
