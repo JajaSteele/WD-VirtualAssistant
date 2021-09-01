@@ -20,6 +20,9 @@
  If your script needs to get arguments from the chat , you can simply use `<prefix> <command name> <args>` in the chat.
  And all the arguments can then be fetched using `shell.parse(...)` (https://ocdoc.cil.li/api:shell)
  
+# Reset Config
+ If you need to change your prefix/name , simply run `assistant reset`
+ 
 # Disclaimer
  i'm **really** not a pro or a very high-level Lua user, my code is probably laggy and not very optimized, but it works!
  
