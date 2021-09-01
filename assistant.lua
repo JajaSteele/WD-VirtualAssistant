@@ -139,7 +139,13 @@ repeat
     cb.say("Command Received!")
     os.sleep(0.5)
     checkcmd(lc3)
-    os.sleep(8)
+    os.sleep(3)
+    local clength = string.len(config)
+    if clength < 7 then
+        g.setResolution(9,2)
+    else
+        g.setResolution(clength+2,2)
+    end
     term.clear()
     term.setCursor(2,1)
     term.write("Prefix:\n".." "..config)
