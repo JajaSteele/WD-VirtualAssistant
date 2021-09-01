@@ -2,7 +2,7 @@
  
  Hello , and welcome to another of my projects! 
  This project is a program that will work with Warp-Drive's Virtual Assistant block.
- With this program , you will be able to set custom chat commands , by simply putting your own lua script to execute in /home/AIScript/
+ With this program , you will be able to set custom chat commands , by simply putting your own lua script to execute in a folder!
  
 # How to add a script
  - First, of course, you need to create your own script.
