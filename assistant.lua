@@ -139,6 +139,9 @@ repeat
     cb.say("Command Received!")
     os.sleep(0.5)
     checkcmd(lc3)
-    os.sleep(0.15)
+    os.sleep(8)
+    term.clear()
+    term.setCursor(2,1)
+    term.write("Prefix:\n".." "..config)
 until i == 2
 
