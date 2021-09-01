@@ -12,8 +12,8 @@
  - And woah! you now have a script that you can launch from the chat!!
 
 # How to use arguments
- If your script needs to get arguments from the chat , you can simply use `<prefix> <command name> <args>`
- All the arguments can be fetched using `shell.parse(...)` (https://ocdoc.cil.li/api:shell)
+ If your script needs to get arguments from the chat , you can simply use `<prefix> <command name> <args>` in the chat.
+ And all the arguments can then be fetched using `shell.parse(...)` (https://ocdoc.cil.li/api:shell)
  
 # Disclaimer
  i'm **really** not a pro or a very high-level Lua user, my code is probably laggy and not very optimized, but it works!
