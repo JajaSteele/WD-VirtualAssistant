@@ -4,6 +4,11 @@
  This project is a program that will work with Warp-Drive's Virtual Assistant block.
  With this program , you will be able to set custom chat commands , by simply putting your own lua script to execute in a folder!
  
+# How to install
+ - First , run `wget https://raw.githubusercontent.com/superjaja05/WD-VirtualAssistant/main/assistant.lua`, then run it.
+ - On the first boot, it will prompt you to create a script folder, send `y` and continue.
+ - Then it will prompt you to chose a name, __this is very important__ as it will be the name used in the chat (<name> <command> <arguments>)
+ - Congrats, the program is now installed!
 # How to add a script
  - First, of course, you need to create your own script.
  - Once you're done, you need to rename your script into the command name you want.
