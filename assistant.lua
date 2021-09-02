@@ -46,7 +46,7 @@ function checkcmd(x)
         os.execute("/home/AIScript/"..x..".lua")
     else
         local words = {}
-        words[1], words[2] = x:match("(%w+)(.+)")
+        words[1], words[2] = string.lower(x):match("(%w+)(.+)")
         if words[1] == nil then words[1] = x end
 
         print(words[1]..words[2])
