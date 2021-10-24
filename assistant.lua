@@ -2,6 +2,7 @@ local component = require("component")
 local term = require("term")
 local shell = require("shell")
 local filesystem = require("filesystem")
+local event = require("event")
 
 local as = component.warpdriveVirtualAssistant
 local cb = component.chat_box
@@ -10,7 +11,7 @@ local g = component.gpu
 local args, ops = shell.parse(...)
 
 term.clear()
-g.setResolution(160/3,50/3)
+--g.setResolution(160/3,50/3)
 
 if filesystem.exists("/home/AIScript") then
     print("Scripts folder detected!")
@@ -97,12 +98,12 @@ end
 print(as.name(config))
 print(cb.setName(config))
 
-local clength = string.len(config)
-if clength < 7 then
-    g.setResolution(9,2)
-else
-    g.setResolution(clength+2,2)
-end
+--local clength = string.len(config)
+--if clength < 7 then
+--    g.setResolution(9,2)
+--else
+--    g.setResolution(clength+2,2)
+--end
 
 term.clear()
 
@@ -110,44 +111,55 @@ term.setCursor(2,1)
 term.write("Prefix:\n".." "..config)
 local i = 1
 
-repeat
-    repeat
-    local lc, lc2 = as.pullLastCommand()
-    if lc then
-        lc3 = lc2
-        break
+while true do
+    _, _, player1, cmd1 = event.pull("message")
+    print("MSG Received")
+    print(string.sub(cmd1,1,string.len(config)))
+    if string.sub(cmd1,1,string.len(config)) == config then
+        print("CMD Authentificated")
+        print(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
+        checkcmd(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
     end
-    os.sleep(1)
-    until i == 2
-    term.clear()
-    local w = string.len(lc3)
-    if w < 17 then
-        g.setResolution(19,4)
-        w2 = 19
-    else
-        g.setResolution(w+2,4)
-        w2 = w+2
-    end
-    g.setForeground(0x00ffe8)
-    g.fill(2,1,w2-2,1,"-")
-    g.fill(2,4,w2-2,1,"-")
-    g.setForeground(0xDDDDDD)
-    term.setCursor(2,2)
-    term.write("Command Received!")
-    term.setCursor(2,3)
-    term.write(lc3)
-    cb.say("Command Received!")
-    os.sleep(0.5)
-    checkcmd(lc3)
-    os.sleep(3)
-    local clength = string.len(config)
-    if clength < 7 then
-        g.setResolution(9,2)
-    else
-        g.setResolution(clength+2,2)
-    end
-    term.clear()
-    term.setCursor(2,1)
-    term.write("Prefix:\n".." "..config)
-until i == 2
+end
+
+-- repeat
+--     repeat
+--     local lc, lc2 = as.pullLastCommand()
+--     if lc then
+--         lc3 = lc2
+--         break
+--     end
+--     os.sleep(1)
+--     until i == 2
+--     term.clear()
+--     local w = string.len(lc3)
+--     if w < 17 then
+--         g.setResolution(19,4)
+--         w2 = 19
+--     else
+--         g.setResolution(w+2,4)
+--         w2 = w+2
+--     end
+--     g.setForeground(0x00ffe8)
+--     g.fill(2,1,w2-2,1,"-")
+--     g.fill(2,4,w2-2,1,"-")
+--     g.setForeground(0xDDDDDD)
+--     term.setCursor(2,2)
+--     term.write("Command Received!")
+--     term.setCursor(2,3)
+--     term.write(lc3)
+--     cb.say("Command Received!")
+--     os.sleep(0.5)
+--     checkcmd(lc3)
+--     os.sleep(3)
+--     local clength = string.len(config)
+--     if clength < 7 then
+--         g.setResolution(9,2)
+--     else
+--         g.setResolution(clength+2,2)
+--     end
+--     term.clear()
+--     term.setCursor(2,1)
+--     term.write("Prefix:\n".." "..config)
+-- until i == 2
 
