@@ -98,7 +98,7 @@ end
 print(as.name(config))
 print(cb.setName(config))
 
---local clength = string.len(config)
+local clength = string.len(config)
 --if clength < 7 then
 --    g.setResolution(9,2)
 --else
@@ -113,12 +113,37 @@ local i = 1
 
 while true do
     _, _, player1, cmd1 = event.pull("message")
-    print("MSG Received")
-    print(string.sub(cmd1,1,string.len(config)))
     if string.sub(cmd1,1,string.len(config)) == config then
-        print("CMD Authentificated")
-        print(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
+        term.clear()
+        local w = string.len(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
+        -- if w < 17 then
+        --     g.setResolution(19,4)
+        --     w2 = 19
+        -- else
+        --     g.setResolution(w+2,4)
+        --     w2 = w+2
+        -- end
+        -- g.setForeground(0x00ffe8)
+        -- g.fill(2,1,w2-2,1,"-")
+        -- g.fill(2,4,w2-2,1,"-")
+        -- g.setForeground(0xDDDDDD)
+        -- term.setCursor(2,2)
+        -- term.write("Command Received!")
+        -- term.setCursor(2,3)
+        -- term.write(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
+        -- cb.say("Command Received!")
+        -- os.sleep(0.5)
         checkcmd(string.sub(cmd1,string.len(config)+1,string.len(cmd1)))
+        -- os.sleep(3)
+        -- local clength = string.len(config)
+        -- if clength < 7 then
+        --     g.setResolution(9,2)
+        -- else
+        --     g.setResolution(clength+2,2)
+        -- end
+        -- term.clear()
+        -- term.setCursor(2,1)
+        -- term.write("Prefix:\n".." "..config)
     end
 end
 
