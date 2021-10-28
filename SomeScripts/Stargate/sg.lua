@@ -5,6 +5,7 @@ fs = cp.filesystem
 sz = require("serialization")
 colors = require("colors")
 sides = require("sides")
+t = require("term")
 rs = cp.redstone
 
 cb = cp.chat_box
@@ -14,6 +15,9 @@ cl = cp.colorful_lamp
 ct = require("computer")
 
 cb.setName("SG Assistant")
+
+g.setBackground(0x000000)
+g.setForeground(0xFFFFFF)
 
 function toBits(num)
     -- returns a table of bits, least significant first.
@@ -63,6 +67,26 @@ function lampColor(r1,g1,b1)
     cl.setLampColor(clValue)
 end
 
+local function fswriteC(t1,c1,c2)
+    oldC1 = g.getForeground()
+    oldC2 = g.getBackground()
+
+    g.setForeground(c1)
+    g.setBackground(c2)
+
+    g.setResolution(string.len(t1),1)
+    t.setCursor(1,1)
+    t.write(t1)
+    g.setForeground(oldC1)
+    g.setBackground(oldC2)
+end
+
+local function fswrite(t1)
+    g.setResolution(string.len(t1),1)
+    t.setCursor(1,1)
+    t.write(t1)
+end
+
 fileA1 = io.open("/home/AIScript/save/a1z26.txt", "r")
 dataA1 = fileA1:read("*a")
 tableA1 = sz.unserialize(dataA1)
@@ -106,13 +130,15 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
             os.sleep(0.2)
         end
 
-        sg.disconnect() cb.say("Stargate Disconnected")
+        sg.disconnect() cb.say("Stargate Disconnected") fswrite("Disconnected")
 
         os.sleep(3)
 
-        sg.closeIris() cb.say("Iris Closed")
-        
-        os.sleep(3)
+        if args[1] == "close" then
+            sg.closeIris() cb.say("Iris Closed") fswrite("Iris Closed")
+            
+            os.sleep(0.5)
+        end
 
         if args[1] == "close" then
             rs.setBundledOutput(sides.back, colors.lime, 0)
@@ -120,7 +146,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
     end
 
     if args[1] ~= "close" then
-        if string.len(table1[args[1]]) ~= 7 or string.len(table1[args[1]]) ~= 9 then
+        if not string.len(table1[args[1]]) == 7 or not string.len(table1[args[1]]) == 9 then
             cb.say("§cInvalid Address!")
             return
         end
@@ -128,14 +154,28 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
 
         rs.setBundledOutput(sides.back, colors.lime, 255)
 
-        sg.dial(table1[args[1]]) cb.say("Dialing "..table1[args[1]])
+        sg.dial(table1[args[1]]) cb.say("Dialing "..table1[args[1]]) fswrite("Dialing")
+
+        os.sleep(0.5)
+
+        g.setResolution(string.len(table1[args[1]]),2)
+        t.setCursor(1,1)
+        t.clear()
+
+        init1=true
 
         repeat
             address1 = sg.remoteAddress()
             state1, chevron1, direction1 = sg.stargateState()
             adlength = string.len(address1)
             lastDial = string.lower(string.sub(address1,chevron1,chevron1))
-            print(lastDial,chevron1)
+            
+            t.setCursor(chevron1,2)
+            save1 = chevron1+1
+            t.write(" ^")
+
+            t.setCursor(chevron1,1)
+            t.write(lastDial)
 
             if lastDial == nil or lastDial == "" then
                 red1 = 0
@@ -155,11 +195,29 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
 
             lampColor(red1,green1,blue1)
             chevron2 = chevron1
+            if chevron1 == 5 and init1 then
+                sg.closeIris() cb.say("Iris Closed")
+                init1 = false
+            end
         until chevron1 == 7
 
-        os.sleep(3)
+        oldC1 = g.getBackground()
 
-        cb.say("Stargate Connected to "..args[1])
+        g.setBackground(0x44FF44)
+
+        for iv1=1, string.len(table1[args[1]]) do
+            t.setCursor(iv1,1)
+            oldChar = g.get(iv1,1)
+            t.write(oldChar)
+            os.sleep(0.33)
+            if iv1 == save1 then
+                t.write(">")
+            end
+        end
+
+        g.setBackground(oldC1)
+
+        cb.say("Stargate Connected to "..args[1]) fswrite("Connected")
 
         for i1=1, 3 do
             lampColor(0,255,0)
@@ -169,7 +227,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
             os.sleep(0.2)
         end
 
-        sg.openIris() cb.say("Iris Opened")
+        sg.openIris() cb.say("Iris Opened") fswrite("Iris Opened")
     end
 end
 
@@ -232,9 +290,7 @@ if args[1] == "dial" then
                 lampColor(255,255,255)
                 os.sleep(0.2)
             end
-            sg.disconnect() cb.say("Stargate Disconnected")
-            os.sleep(3)
-            sg.closeIris() cb.say("Iris Closed")
+            sg.disconnect() cb.say("Stargate Disconnected") fswrite("Disconnected")
             os.sleep(3)
             if args[1] == "close" then
                 rs.setBundledOutput(sides.back, colors.lime, 0)
@@ -245,14 +301,28 @@ if args[1] == "dial" then
 
             rs.setBundledOutput(sides.back, colors.lime, 255)
 
-            sg.dial(args[2]) cb.say("Dialing "..args[2])
+            sg.dial(args[2]) cb.say("Dialing "..args[2]) fswrite("Dialing")
+
+            os.sleep(0.5)
+
+            g.setResolution(string.len(args[2]),2)
+            t.setCursor(1,1)
+            t.clear()
+
+            init1 = true
 
             repeat
                 address1 = sg.remoteAddress()
                 state1, chevron1, direction1 = sg.stargateState()
                 adlength = string.len(address1)
                 lastDial = string.lower(string.sub(address1,chevron1,chevron1))
-                print(lastDial,chevron1)
+
+                t.setCursor(chevron1,2)
+                save1 = chevron1+1
+                t.write(" ^")
+
+                t.setCursor(chevron1,1)
+                t.write(lastDial)
 
                 if lastDial == nil or lastDial == "" then
                     red1 = 0
@@ -272,10 +342,29 @@ if args[1] == "dial" then
 
                 lampColor(red1,green1,blue1)
                 chevron2 = chevron1
+                if chevron1 == 5 and init1 then
+                    sg.closeIris() cb.say("Iris Closed")
+                    init1 = false
+                end
             until chevron1 == 7
 
-            os.sleep(3)
-            cb.say("Stargate Connected to "..args[2])
+            oldC1 = g.getBackground()
+
+            g.setBackground(0x44FF44)
+
+            for iv1=1, string.len(args[2]) do
+                t.setCursor(iv1,1)
+                oldChar = g.get(iv1,1)
+                t.write(oldChar)
+                os.sleep(0.33)
+                if iv1 == save1 then
+                    t.write(">")
+                end
+            end
+
+            g.setBackground(oldC1)
+
+            cb.say("Stargate Connected to "..args[2]) fswrite("Connected")
 
             for i1=1, 3 do
                 lampColor(0,255,0)
@@ -285,9 +374,12 @@ if args[1] == "dial" then
                 os.sleep(0.2)
             end
 
-            sg.openIris() cb.say("Iris Opened")
+            sg.openIris() cb.say("Iris Opened") fswrite("Iris Opened")
         end
     else
         cb.say("§cInvalid Address!")
     end
 end
+
+fswrite("Program Exit..")
+os.sleep(0.5)
