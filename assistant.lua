@@ -161,7 +161,6 @@ local function matrixFull()
             term.setCursor(i2,i1)
             term.write(string.format("%.0f", math.random(0,9)))
         end
-        os.sleep(1/128)
     end
 end
 
@@ -173,7 +172,6 @@ local function clearFull()
             term.write(string.format("%.0f", math.random(0,9)))
             term.write(" ")
         end
-        os.sleep(1/128)
     end
     term.clear()
     computer.beep(300,0.1)
@@ -269,6 +267,7 @@ while true do
         term.clear()
         term.setCursor(2,1)
         term.write("AI Assistant\n".." > "..config)
+        cb.say("Ready for CMD")
     end
 end
 

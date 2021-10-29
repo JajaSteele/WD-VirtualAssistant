@@ -174,6 +174,9 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
             save1 = chevron1+1
             t.write(" ^")
 
+            t.setCursor(chevron1+1,1)
+            t.write("-")
+
             t.setCursor(chevron1,1)
             t.write(lastDial)
 
@@ -195,11 +198,11 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
 
             lampColor(red1,green1,blue1)
             chevron2 = chevron1
-            if chevron1 == 5 and init1 then
+            if chevron1 == adlength-4 and init1 then
                 sg.closeIris() cb.say("Iris Closed")
                 init1 = false
             end
-        until chevron1 == 7
+        until chevron1 == adlength-2
 
         oldC1 = g.getBackground()
 
@@ -321,6 +324,9 @@ if args[1] == "dial" then
                 save1 = chevron1+1
                 t.write(" ^")
 
+                t.setCursor(chevron1+1,1)
+                t.write("-")
+
                 t.setCursor(chevron1,1)
                 t.write(lastDial)
 
@@ -342,11 +348,11 @@ if args[1] == "dial" then
 
                 lampColor(red1,green1,blue1)
                 chevron2 = chevron1
-                if chevron1 == 5 and init1 then
+                if chevron1 == adlength-4 and init1 then
                     sg.closeIris() cb.say("Iris Closed")
                     init1 = false
                 end
-            until chevron1 == 7
+            until chevron1 == adlength-2
 
             oldC1 = g.getBackground()
 
