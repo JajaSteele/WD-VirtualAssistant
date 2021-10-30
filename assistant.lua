@@ -192,7 +192,7 @@ if args[1] == "help" then
     print("'assistant' = Simply boots the program.\n'assistant reset' = Reset the config (assistant name+prefix).\n'assistant help' = shows this page.  ")
     os.exit()
 end
-cb.setDistance(128)
+cb.setDistance(2097088)
 
 print("Thanks for choosing JJS-Assistant!")
 
@@ -256,8 +256,7 @@ while true do
         clearFull()
         checkcmd(string.sub(cmd1,string.len(config)+1,string.len(cmd1)),player1)
         print(cb.setName(config))
-        os.sleep(3)
-        clearFull()
+        os.sleep(1)
         local clength = string.len(config)
         if clength < 11 then
             g.setResolution(14,2)

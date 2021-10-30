@@ -154,9 +154,14 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
 
         rs.setBundledOutput(sides.back, colors.lime, 255)
 
-        sg.dial(table1[args[1]]) cb.say("Dialing "..table1[args[1]]) fswrite("Dialing")
+        _, dialStat = sg.dial(table1[args[1]]) cb.say("Dialing "..table1[args[1]]) fswrite("Dialing")
+        if dialStat ~= nil then
+            fswrite("!ERROR!")
+            cb.say("§c§lDialing Error! §eError Type: §o"..dialStat)
+            return
+        end
 
-        os.sleep(0.5)
+        os.sleep(2)
 
         g.setResolution(string.len(table1[args[1]]),2)
         t.setCursor(1,1)
@@ -165,6 +170,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
         init1=true
 
         repeat
+            os.sleep(0.01)
             address1 = sg.remoteAddress()
             state1, chevron1, direction1 = sg.stargateState()
             adlength = string.len(address1)
@@ -304,7 +310,12 @@ if args[1] == "dial" then
 
             rs.setBundledOutput(sides.back, colors.lime, 255)
 
-            sg.dial(args[2]) cb.say("Dialing "..args[2]) fswrite("Dialing")
+            _, dialStat = sg.dial(args[2]) cb.say("Dialing "..args[2]) fswrite("Dialing")
+            if dialStat ~= nil then
+                fswrite("!ERROR!")
+                cb.say("§c§lDialing Error! §eError Type: §o"..dialStat)
+                return
+            end
 
             os.sleep(0.5)
 
@@ -315,6 +326,7 @@ if args[1] == "dial" then
             init1 = true
 
             repeat
+                os.sleep(0.01)
                 address1 = sg.remoteAddress()
                 state1, chevron1, direction1 = sg.stargateState()
                 adlength = string.len(address1)
