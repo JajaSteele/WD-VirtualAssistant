@@ -145,7 +145,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
         end
     end
 
-    if args[1] ~= "close" then
+    if args[1] ~= "close" and args[1] ~= "dir" and args[1] ~= "iris" then
         if not string.len(table1[args[1]]) == 7 or not string.len(table1[args[1]]) == 9 then
             cb.say("§cInvalid Address!")
             return
@@ -173,12 +173,19 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
             os.sleep(0.01)
             address1 = sg.remoteAddress()
             state1, chevron1, direction1 = sg.stargateState()
+            if state1 ~= "Dialling" and chevron1 < 7 then
+                cb.say("§cERROR")
+                return
+            end
             adlength = string.len(address1)
             lastDial = string.lower(string.sub(address1,chevron1,chevron1))
+
+            t.setCursor(1,2)
+            t.write(address1)
             
-            t.setCursor(chevron1,2)
+            t.setCursor(chevron1+1,2)
             save1 = chevron1+1
-            t.write(" ^")
+            t.write("^")
 
             t.setCursor(chevron1+1,1)
             t.write("-")
@@ -264,8 +271,9 @@ if args[1] == "dir" then
         table1 = sz.unserialize(data1)
         print(table1)
         file1:close()
+        oldData1 = table1[args[3]]
         table1[args[3]] = nil
-        cb.say("Removed Contact "..args[3])
+        cb.say("Removed Contact §f"..args[3].."§7 With Address §f"..oldData1)
         file2 = io.open("/home/AIScript/save/gates.txt", "w")
         file2:write(sz.serialize(table1))
         file2:close()
@@ -329,8 +337,15 @@ if args[1] == "dial" then
                 os.sleep(0.01)
                 address1 = sg.remoteAddress()
                 state1, chevron1, direction1 = sg.stargateState()
+                if state1 ~= "Dialling" and chevron1 < 7 then
+                    cb.say("§cERROR")
+                    return
+                end
                 adlength = string.len(address1)
                 lastDial = string.lower(string.sub(address1,chevron1,chevron1))
+
+                t.setCursor(1,2)
+                t.write(address1)
 
                 t.setCursor(chevron1,2)
                 save1 = chevron1+1
@@ -396,6 +411,15 @@ if args[1] == "dial" then
         end
     else
         cb.say("§cInvalid Address!")
+    end
+end
+
+if args[1] == "iris" then
+    if args[2] == "open" then
+        sg.openIris() cb.say("Iris Opened") fswrite("Iris Opened")
+    end
+    if args[2] == "close" then
+        sg.closeIris() cb.say("Iris Closed") fswrite("Iris Closed")
     end
 end
 
