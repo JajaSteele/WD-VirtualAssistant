@@ -112,7 +112,7 @@ if tableTest == nil then
     fileTest2:close()
 end
 
-if args[1] ~= "dir" and args[1] ~= "dial" then
+if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" then
     file1 = io.open("/home/AIScript/save/gates.txt", "r")
     data1 = file1:read("*a")
     table1 = sz.unserialize(data1)
@@ -145,7 +145,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" then
         end
     end
 
-    if args[1] ~= "close" and args[1] ~= "dir" and args[1] ~= "iris" then
+    if args[1] ~= "close" then
         if not string.len(table1[args[1]]) == 7 or not string.len(table1[args[1]]) == 9 then
             cb.say("§cInvalid Address!")
             return
