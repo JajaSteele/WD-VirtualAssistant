@@ -6,7 +6,6 @@ local event = require("event")
 local serialization = require("serialization")
 local computer = require("computer")
 
-local as = component.warpdriveVirtualAssistant
 local cb = component.chat_box
 local g = component.gpu
 
@@ -216,7 +215,6 @@ else
     print("Thanks for choosing JJS-Assistant!")
 end
 
-print(as.name(config))
 print(cb.setName(config))
 
 local clength = string.len(config)
