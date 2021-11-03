@@ -112,7 +112,7 @@ if tableTest == nil then
     fileTest2:close()
 end
 
-if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" then
+if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "get" then
     file1 = io.open("/home/AIScript/save/gates.txt", "r")
     data1 = file1:read("*a")
     table1 = sz.unserialize(data1)
@@ -215,7 +215,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" then
                 sg.closeIris() cb.say("Iris Closed")
                 init1 = false
             end
-        until chevron1 == adlength-2
+        until chevron1 >= adlength-2 and state1 == "Connected"
 
         oldC1 = g.getBackground()
 
@@ -379,7 +379,7 @@ if args[1] == "dial" then
                     sg.closeIris() cb.say("Iris Closed")
                     init1 = false
                 end
-            until chevron1 == adlength-2
+            until chevron1 >= adlength-2 and state1 == "Connected"
 
             oldC1 = g.getBackground()
 
@@ -421,6 +421,10 @@ if args[1] == "iris" then
     if args[2] == "close" then
         sg.closeIris() cb.say("Iris Closed") fswrite("Iris Closed")
     end
+end
+
+if args[1] == "get" then
+    cb.say("This SG Address is: §f§n"..sg.localAddress())
 end
 
 fswrite("Program Exit..")
