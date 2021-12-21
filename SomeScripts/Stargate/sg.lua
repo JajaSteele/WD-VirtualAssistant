@@ -88,6 +88,11 @@ local function fswrite(t1)
 end
 
 fileA1 = io.open("/home/AIScript/save/a1z26.txt", "r")
+if fileA1 == nil then
+    print("A1Z26 Not found..")
+    if not fs.exists("/home/AIScript/save") then
+        fs2.makeDirectory("/home/AIScript/save")
+        shell.execute("wget https://github.com/JJS-Laboratories/WD-VirtualAssistant/raw/main/SomeScripts/Stargate/save/a1z26.txt /home/AIScript/save/a1z26.txt")
 dataA1 = fileA1:read("*a")
 tableA1 = sz.unserialize(dataA1)
 print("A1Z26 Table: "..sz.serialize(tableA1))
@@ -101,16 +106,18 @@ X1, Y1 = g.maxResolution()
 g.setResolution(X1,Y1)
 
 fileTest = io.open("/home/AIScript/save/gates.txt", "r")
+if fileTest == nil then
+    fileTest2 = io.open("/home/AIScript/save/gates.txt", "w")
+    fileTest2:write("{}")
+    fileTest2:close()
+    fileTest = io.open("/home/AIScript/save/gates.txt", "r")
+end
 dataTest = fileTest:read("*a")
 tableTest = sz.unserialize(dataTest)
 print(tableTest)
 fileTest:close()
 
-if tableTest == nil then
-    fileTest2 = io.open("/home/AIScript/save/gates.txt", "w")
-    fileTest2:write("{}")
-    fileTest2:close()
-end
+
 
 if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "get" then
     file1 = io.open("/home/AIScript/save/gates.txt", "r")
