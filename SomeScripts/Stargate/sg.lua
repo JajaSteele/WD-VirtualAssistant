@@ -93,6 +93,8 @@ if fileA1 == nil then
     if not fs.exists("/home/AIScript/save") then
         fs2.makeDirectory("/home/AIScript/save")
         shell.execute("wget https://github.com/JJS-Laboratories/WD-VirtualAssistant/raw/main/SomeScripts/Stargate/save/a1z26.txt /home/AIScript/save/a1z26.txt")
+    end
+end
 dataA1 = fileA1:read("*a")
 tableA1 = sz.unserialize(dataA1)
 print("A1Z26 Table: "..sz.serialize(tableA1))
