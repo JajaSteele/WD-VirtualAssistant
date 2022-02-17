@@ -152,6 +152,8 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "
         if args[1] == "close" then
             rs.setBundledOutput(sides.back, colors.lime, 0)
         end
+    elseif args[1] == "close" then
+        rs.setBundledOutput(sides.back, colors.lime, 0)
     end
 
     if args[1] ~= "close" then
@@ -184,6 +186,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "
             state1, chevron1, direction1 = sg.stargateState()
             if state1 ~= "Dialling" and chevron1 < 7 then
                 cb.say("§cERROR")
+                rs.setBundledOutput(sides.back, colors.lime, 0)
                 return
             end
             adlength = string.len(address1)
