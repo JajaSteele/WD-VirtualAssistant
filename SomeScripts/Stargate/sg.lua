@@ -145,6 +145,7 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "
 
         if args[1] == "close" then
             sg.closeIris() cb.say("Iris Closed") fswrite("Iris Closed")
+            rs.setBundledOutput(sides.back, colors.lime, 0)
             
             os.sleep(0.5)
         end
