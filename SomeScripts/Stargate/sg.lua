@@ -256,6 +256,18 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "
         end
 
         sg.openIris() cb.say("Iris Opened") fswrite("Iris Opened")
+
+        if args[2] == "transfer" and args[3] ~= nil then
+            if args[3] == "dir" and args[4] ~= nil then
+                sg.sendMessage("altdial",table1[args[4]])
+                cb.say("Transferring to "..args[4].." ("..table1[args[4]]..")")
+            else
+                sg.sendMessage("altdial",args[3])
+                cb.say("Transferring to "..args[3])
+            end
+            os.sleep(1)
+            sg.close()
+        end
     end
 end
 
