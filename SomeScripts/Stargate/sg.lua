@@ -266,7 +266,6 @@ if args[1] ~= "dir" and args[1] ~= "dial" and args[1] ~= "iris" and args[1] ~= "
                 cb.say("Transferring to "..args[3])
             end
             os.sleep(1)
-            sg.close()
         end
     end
 end
